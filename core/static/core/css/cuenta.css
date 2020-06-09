@@ -1,0 +1,56 @@
+header{
+    position: fixed;
+    right: 0;
+    left: 0;
+    grid-area: header;
+}
+.icon-home{
+    border: none;
+    padding: 10px;
+    background: #651a21;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 25%;
+    margin-right: 20px;
+}
+.button-header{
+    display: flex;
+    align-items: center;
+}
+.button-header button{
+    margin-left:10px;
+}
+.button-menu{
+    -webkit-appearance: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 100%;
+    margin-right: 20px;
+    color: white;
+}
+.content{
+    display: grid;
+    width: 100%;
+    grid-template-rows: 50px auto ;
+    grid-template-areas:"header"
+                        "main";
+}
+.main{
+    grid-area: main;
+}
+.main h1{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+}
+.main .divnuevacuenta{
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+.formcuenta{
+    margin-left: 15px;
+}

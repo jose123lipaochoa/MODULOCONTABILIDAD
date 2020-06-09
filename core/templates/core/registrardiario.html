@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/d29b05136f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{%static 'core/css/cuenta.css' %}">
+    <link rel="stylesheet" type="text/css" href="{%static 'core/css/node_modules/bootstrap/dist/css/bootstrap.css' %}">
+    <script src="{%static 'core/js/node_modules/jquery/dist/jquery.js' %}"></script>
+    <script src="{%static 'core/css/node_modules/bootstrap/dist/js/bootstrap.js' %}"></script>
+    <title>Title</title>
+</head>
+<body>
+    <div class="content">
+        <header style="z-index: 100">
+            <nav class="navbar navbar-dark" style="background-color: #191b2a;">
+                <a class="navbar-brand"><i class="fas fa-file-invoice-dollar"></i> CONTABILIDAD</a>
+                <div class="button-header">
+                    <button class="btn btn-primary" onclick="window.location.href='{% url 'cuenta'%}'">Cuentas</button>
+                    <button class="btn btn-primary" onclick="window.location.href='{% url 'librodiario'%}'">Libro de diario</span></button>
+                    <button class="btn btn-primary" onclick="window.location.href='{% url 'libromayor'%}'">Libro mayor</span></button>
+                </div>
+            </nav>
+        </header>
+        <main class="main">
+            <h1>Registro de libro diario</h1>
+            <form action="" method="POST" class="formcuenta">
+                {% csrf_token %}
+                <div class="input-group mb-2 mr-sm-2">
+                    <input name="numero" type="text" class="form-control" placeholder="Numero" maxlength="5" minlength="5">
+                </div>
+                <div class="input-group mb-2 mr-sm-2">
+                    <input name="fecha" type="date" value="{{m.dob|date:'Y-m-d'}}" required=True class="form-control" placeholder="fecha">
+                </div>
+                <div class="input-group mb-2 mr-sm-2">
+                    <select name="numero_cuenta" class="form-control">
+                        {%for result in cuentas%}
+                        <option name="numero_cuenta" value="{{result.id}}">{{result.numero}} {{result.nombre}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+                <div class="input-group mb-2 mr-sm-2">
+                    <input name="debe" type="number" step="0.01" class="form-control" class="form-control" placeholder="Debe">
+                </div>
+                <div class="input-group mb-2 mr-sm-2">
+                    <input name="haber" type="number" step="0.01" class="form-control" placeholder="Haber">
+                </div>
+                <input class="btn btn-primary" type="submit" name="Registrar" value="Registrar">
+            </form>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/d29b05136f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{%static 'core/css/cuenta.css' %}">
+    <link rel="stylesheet" type="text/css" href="{%static 'core/css/node_modules/bootstrap/dist/css/bootstrap.css' %}">
+    <script src="{%static 'core/js/node_modules/jquery/dist/jquery.js' %}"></script>
+    <script src="{%static 'core/css/node_modules/bootstrap/dist/js/bootstrap.js' %}"></script>
+    <title>Title</title>
+</head>
+<body>
+    <div class="content">
+        <header style="z-index: 100">
+            <nav class="navbar navbar-dark" style="background-color: #191b2a;">
+                <a class="navbar-brand"><i class="fas fa-file-invoice-dollar"></i> CONTABILIDAD</a>
+                <div class="button-header">
+                    <button class="btn btn-primary" onclick="window.location.href='{% url 'cuenta'%}'">Cuentas</button>
+                    <button class="btn btn-primary" onclick="window.location.href='{% url 'librodiario'%}'">Libro de diario</span></button>
+                    <button class="btn btn-primary" onclick="window.location.href='{% url 'libromayor'%}'">Libro mayor</span></button>
+
+                </div>
+            </nav>
+        </header>
+        <main class="main">
+            <h1>Libro mayor</h1>
+            <form class="formcuenta" method="POST">
+                {% csrf_token %}
+                <input name="fecha_inicio" type="date" value="{{m.dob|date:'Y-m-d'}}" required=True class="form-control" placeholder="fecha inicial">
+                <input name="fecha_fin" type="date" value="{{m.dob|date:'Y-m-d'}}" required=True class="form-control" placeholder="fecha final">
+                <div class="input-group mb-2 mr-sm-2">
+                    <select name="numero_cuenta" class="form-control">
+                        {%for result in cuentas%}
+                        <option name="numero_cuenta" value="{{result.id}}">{{result.numero}} {{result.nombre}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+                <input type="submit" class="btn btn-primary" value="GENERAR">
+                {%if instance != '' %}
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Cuenta</th>
+                            <th scope="col">Fecha Inicio</th>
+                            <th scope="col">Fecha Fin</th>
+                            <th scope="col">Saldo Acreedor</th>
+                            <th scope="col">Saldo Deudor</th>
+                            <th scope="col">Saldo Final</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{instance.numero_cuenta}}</td>
+                            <td>{{instance.fecha_inicio}}</td>
+                            <td>{{instance.fecha_fin}}</td>
+                            {%if instance.saldo_acreedor != 0 %}
+                            <td>{{instance.saldo_acreedor}}</td>
+                            <td>---</td>
+                            {%else%}
+                            {%if instance.saldo_acreedor != 0 %}
+                            <td>---</td>
+                            <td>{{instance.saldo_deudor}}</td>
+                            {%else%}
+                            <td>---</td>
+                            <td>---</td>
+                            {%endif%}
+                            {%endif%}
+                            <td>{{instance.saldo_final}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                {%endif%}
+            </form>
+        </main>
+    </div>
+</body>
+</html>

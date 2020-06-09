@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://kit.fontawesome.com/d29b05136f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{%static 'core/css/cuenta.css' %}">
+    <link rel="stylesheet" type="text/css" href="{%static 'core/css/node_modules/bootstrap/dist/css/bootstrap.css' %}">
+    <script src="{%static 'core/js/node_modules/jquery/dist/jquery.js' %}"></script>
+    <script src="{%static 'core/css/node_modules/bootstrap/dist/js/bootstrap.js' %}"></script>
+</head>
+<body>
+    <div class="content">
+        <header style="z-index: 100">
+                <nav class="navbar navbar-dark" style="background-color: #191b2a;">
+                    <a class="navbar-brand"><i class="fas fa-file-invoice-dollar"></i> CONTABILIDAD</a>
+                    <div class="button-header">
+                        <button class="btn btn-primary" onclick="window.location.href='{% url 'cuenta'%}'">Cuentas</button>
+                        <button class="btn btn-primary" onclick="window.location.href='{% url 'librodiario'%}'">Libro de diario</span></button>
+                        <button class="btn btn-primary" onclick="window.location.href='{% url 'libromayor'%}'">Libro mayor</span></button>
+
+                    </div>
+                </nav>
+        </header>
+        <main class="main">
+            <h1>Estas seguro de eliminar {{item}}</h1>
+            <form action="{%url 'eliminardiario' item.numero%}" class="formcuenta" method="POST">
+            {%csrf_token%}
+            <a class="btn btn-danger" href="{% url 'librodiario'%}">Cancel</a>
+            <input type="submit" class="btn btn-primary" name="Confirmar" value="Confirmar">
+            </form>
+        </main>
+    </div>
+</body>
+</html>

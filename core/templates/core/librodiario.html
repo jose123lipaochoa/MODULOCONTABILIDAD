@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/d29b05136f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{%static 'core/css/cuenta.css' %}">
+    <link rel="stylesheet" type="text/css" href="{%static 'core/css/node_modules/bootstrap/dist/css/bootstrap.css' %}">
+    <script src="{%static 'core/js/node_modules/jquery/dist/jquery.js' %}"></script>
+    <script src="{%static 'core/css/node_modules/bootstrap/dist/js/bootstrap.js' %}"></script>
+    <title>Title</title>
+</head>
+<body>
+    <div class="content">
+        <header style="z-index: 100">
+            <nav class="navbar navbar-dark" style="background-color: #191b2a;">
+                <a class="navbar-brand"><i class="fas fa-file-invoice-dollar"></i> CONTABILIDAD</a>
+                <div class="button-header">
+                    <button class="btn btn-primary" onclick="window.location.href='{% url 'cuenta'%}'">Cuentas</button>
+                    <button class="btn btn-primary" onclick="window.location.href='{% url 'librodiario'%}'">Libro de diario</span></button>
+                    <button class="btn btn-primary" onclick="window.location.href='{% url 'libromayor'%}'">Libro mayor</span></button>
+
+                </div>
+            </nav>
+        </header>
+        <main class="main">
+            <h1>Libro diario</h1>
+            <div class="divnuevacuenta">
+                <button class="btn btn-primary" onclick="window.location.href='{%url 'registrardiario'%}'">Nuevo Libro Diario</button>
+            </div>
+            <div class="col-md-12">
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Numero</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Cuenta</th>
+                        <th scope="col">Debe</th>
+                        <th scope="col">Haber</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%for librodiario in librodiarios%}
+                    <tr>
+                        <td>{{librodiario.numero}}</td>
+                        <td>{{librodiario.fecha}}</td>
+                        <td>{{librodiario.numero_cuenta}}</td>
+                        {%if librodiario.debe%}
+                        <td>{{librodiario.debe}}</td>
+                        {%else%}
+                        <td>0.00</td>
+                        {%endif%}
+                        {%if librodiario.haber%}
+                        <td>{{librodiario.haber}}</td>
+                        {%else%}
+                        <td>0.00</td>
+                        {%endif%}
+                        <td>
+                            <button class="btn btn-primary" onclick="window.location.href='{%url 'editardiario' librodiario.numero%}'">Editar</button>
+                            <button class="btn btn-danger" onclick="window.location.href='{%url 'eliminardiario' librodiario.numero%}'">Eliminar</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    {%endfor%}
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
